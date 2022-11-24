@@ -1,0 +1,205 @@
+class Cliente{
+    id:number = 0;
+    nombre:string = '';
+    apellido:string = '';
+    telefono:number =0;
+    correo:string ='';
+    tipo_Prestamo:string='';
+    fecha:Date = new Date
+    arrayCliente:any[] = []
+
+}
+
+interface BacoMax extends Cliente{
+    getAll():void;
+    getById(id: number):void;
+    getByName(nombre: string ):void;
+    create( id:number,
+            nombre:string,
+            apellido:string,
+            telefono:number,
+            correo:string,
+            tipo_Prestamo:string,
+            fecha:Date
+            ):void;
+    update(id:number,
+            nombre:string,
+            apellido:string,
+            telefono:number,
+            correo:string,
+            tipo_Prestamo:string,
+            fecha:Date):void;
+    delete(id: number):void;
+}
+class MetodosBanco implements BacoMax{
+    id: number = 0;
+    nombre: string = '';
+    apellido: string = '';
+    telefono: number = 0;
+    correo: string = '';
+    tipo_Prestamo: string = '';
+    fecha: Date = new Date
+    arrayCliente: any[] = [{id: 1, nombre: 'Andres', apellido: 'lopez',telefono: 312321232,correo: 'andres@gmail.com',tipo_Prestamo:'credito',fecha:new Date('2021-06-06')},
+    {id: 2, nombre: 'Stefa', apellido: 'Gomez',telefono: 314442132,correo: 'Stefa@gmail.com',tipo_Prestamo:'hipotecario',fecha:new Date('2022-06-06')},
+    {id: 3, nombre: 'Yendi', apellido: 'lopez',telefono: 312355232,correo: 'Yendi@gmail.com',tipo_Prestamo:'Bienes Raiz',fecha:new Date ('2020-06-06')}]
+    
+    getAll():void{
+        let alert:string = '';
+        for(var i of this.arrayCliente){
+            alert += JSON.stringify(i)+'\n-------------------------------------------'
+        }
+            window.alert(alert);
+    }
+
+    getById(id: number):void{
+    
+     let idCliente = this.arrayCliente.findIndex(i => i.id == id)
+     if (idCliente != -1){
+     window.alert(JSON.stringify(this.arrayCliente[idCliente]))
+     }else{
+        window.alert('No se encontro el ID')
+     }
+    }
+
+    getByName(nombre: string):void{
+     let idCliente = this.arrayCliente.findIndex(i => i.nombre == nombre)
+     if (idCliente != -1){
+        window.alert(JSON.stringify(this.arrayCliente[idCliente]))
+     }else{
+        window.alert('No se encontro el Nombre')
+     }
+    }
+
+    create(id:number,
+            nombre:string,
+            apellido:string,
+            telefono:number,
+            correo:string,
+            tipo_Prestamo:string,
+            fecha:Date):void{ 
+            this.arrayCliente.push({id:id, nombre:nombre, apellido:apellido, telefono:telefono, correo:correo, tipo_Prestamo:tipo_Prestamo,fecha:fecha})
+            window.alert('Datos creados exitosamente ')
+
+    }
+
+    update(id:number,
+            nombre:string,
+            apellido:string,
+            telefono:number,
+            correo:string,
+            tipo_Prestamo:string,
+            fecha:Date):void{
+        let idCliente = this.arrayCliente.findIndex(i => i.id == id)
+        if(idCliente != -1){
+          this.arrayCliente[idCliente] = {id:id, nombre:nombre, apellido:apellido, telefono:telefono, correo:correo, tipo_Prestamo:tipo_Prestamo,fecha:fecha}
+          window.alert('Datos aztualizado exitosamente ')
+        }else{
+          window.alert('Los datos no existen ')
+
+        }
+
+    }
+    delete(id: number):void{
+    let idCliente = this.arrayCliente.findIndex(i => i.id == id)
+    window.alert(this.arrayCliente)
+    this.arrayCliente.splice(idCliente, 1)
+    window.alert(this.arrayCliente)
+    }
+
+}
+let DatosClientes = new MetodosBanco()
+
+    let id:number = 0;
+    let nombre:string = '';
+    let apellido:string = '';
+    let telefono:number =0;
+    let correo:string ='';
+    let tipo_Prestamo:string='';
+    let fecha:string = '';
+    let opcion:number = 0; 
+//console.log(DatosClientes.getAll())
+//console.log(DatosClientes.getById(1))
+//console.log(DatosClientes.getByName('Andres'))
+//console.log(DatosClientes.create(4,'Anderson','Flores',312232112,'ander@gmail.com','hipotecario',new Date ('2020-09-09')))
+//console.log(DatosClientes.update(1,'Jose','Narvaes',312232112,'ander@gmail.com','hipotecario',new Date ('2020-09-09')));
+//console.log(DatosClientes.delete(3))
+
+do{
+    opcion = Number(window.prompt('digite el numero de la opcion correspondiente : '+'\n 1.Mosrar todos lod Datos del cliente. \n 2.Mosrar datos por id del cliente. \n 3.Mosrar datos por Nombre del cliente. \n 4.Insertar datos del cliente'+
+    '\n 5.Actualizar datos cliente \n 6.Eliminar datos por id \n 7.Salir'))
+    switch(opcion){
+        case 1:{
+            DatosClientes.getAll()
+            break;
+        }
+        
+        case 2:{
+            id = Number(window.prompt('Digite el id'))
+            DatosClientes.getById(id)
+            break;
+
+        }
+
+        
+        case 3:{
+            nombre = window.prompt('Digite el nombre: ')
+            DatosClientes.getByName(nombre)
+            break;
+
+        }
+        
+        case 4:{
+         id = Number(window.prompt('Digite el id'))
+         nombre = window.prompt('Digite el nombre: ')
+         apellido = window.prompt('Digite el nombre: ')
+         telefono = window.prompt('Digite el nombre: ')
+         correo = window.prompt('Digite el nombre: ')     
+         tipo_Prestamo = window.prompt('Digite el nombre: ')
+         fecha = window.prompt('Digite el nombre: ')
+         
+         DatosClientes.create(id,nombre,apellido,telefono,correo,tipo_Prestamo,new Date (fecha))
+
+            break;
+
+        }
+        
+
+        case 5:{
+         id = Number(window.prompt('Digite el id'))
+         nombre = window.prompt('Digite el nombre: ')
+         apellido = window.prompt('Digite el nombre: ')
+         telefono = window.prompt('Digite el nombre: ')
+         correo = window.prompt('Digite el nombre: ')     
+         tipo_Prestamo = window.prompt('Digite el nombre: ')
+         fecha = window.prompt('Digite el nombre: ')
+         
+         DatosClientes.update(id,nombre,apellido,telefono,correo,tipo_Prestamo,new Date (fecha))
+
+            break;
+
+        }
+        
+
+        case 6:{
+            id = Number(window.prompt('Digite el id'))
+            DatosClientes.delete(3)
+
+            break;
+
+        }
+        
+        case 7:{
+            console.log('Bay')
+        break;
+                        
+        }
+        default:{
+        console.log("Opción inexistente, escoje una válida");
+        break;
+        }
+        
+    }
+
+
+
+}while(opcion != 7)
